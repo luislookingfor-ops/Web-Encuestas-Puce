@@ -153,7 +153,10 @@ const InterviewForm = ({ isAdmin = false }) => {
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('Error al enviar la entrevista. Por favor verifique la conexión.');
+      const errorMessage = error.response 
+        ? `Error del servidor (${error.response.status}): ${error.response.data.message || 'Error desconocido'}`
+        : 'No se pudo conectar con el servidor. ¿Está "php artisan serve" corriendo?';
+      alert(errorMessage);
     } finally {
       setSubmitting(false);
     }
