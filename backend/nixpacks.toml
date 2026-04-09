@@ -1,11 +1,9 @@
 [phases.setup]
-# Cambiamos a php82 para que coincida con tu variable
 nixPkgs = ["php82", "php82Packages.composer"]
 
 [phases.build]
-# ELIMINAMOS los comandos de cache (config:cache y route:cache)
 cmds = ["composer install --no-dev --optimize-autoloader"]
 
 [phases.start]
-# Dejamos que arranque normal. Railway se encarga de las variables.
-cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
+# Aquí corremos la migración JUSTO ANTES de encender el servidor
+cmd = "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"
