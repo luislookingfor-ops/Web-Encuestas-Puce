@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500">
+  <!-- Recreating the logo look as per the image provided -->
+  <path fill="#00B6D9" d="M200 10l-15 45h30zM200 490l-15-45h30zM10 200l45-15v30zM490 200l-45-15v30z" />
+  <circle cx="200" cy="200" r="180" fill="none" stroke="#00B6D9" stroke-width="12" />
+  <path fill="#00B6D9" d="M200 50v300M50 200h300" stroke="#00B6D9" stroke-width="24" />
+  <text x="50%" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="100" fill="#00B6D9">PUCE</text>
+</svg>
