@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     // Esto permite que Railway acceda al servidor de Vite
     allowedHosts: [
-      'frontend-production-65250.up.railway.app' 
+      'encuestas-puce.up.railway.app' 
     ],
     // También puedes usar 'true' para permitir todos los hosts en desarrollo:
     // allowedHosts: true, 
