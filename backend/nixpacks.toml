@@ -1,8 +1,11 @@
 [phases.setup]
-nixPkgs = ["...", "php81", "php81Packages.composer"]
+# Cambiamos a php82 para que coincida con tu variable
+nixPkgs = ["php82", "php82Packages.composer"]
 
 [phases.build]
-cmds = ["composer install --no-dev --optimize-autoloader", "php artisan config:cache", "php artisan route:cache"]
+# ELIMINAMOS los comandos de cache (config:cache y route:cache)
+cmds = ["composer install --no-dev --optimize-autoloader"]
 
 [phases.start]
+# Dejamos que arranque normal. Railway se encarga de las variables.
 cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
