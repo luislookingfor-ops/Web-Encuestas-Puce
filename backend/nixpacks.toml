@@ -2,12 +2,13 @@
 nixPkgs = ["php82", "php82Packages.composer"]
 
 [variables]
-    # Vital para que Laravel pueda hablar con MySQL
     PHP_EXTENSION_INSTALL = "pdo_mysql, mbstring, bcmath, xml, ctype, openssl"
 
 [phases.build]
     cmds = ["composer install --no-dev --optimize-autoloader"]
 
 [phases.start]
-    # El secreto: --force y --no-interaction para que no pregunte nada en producción
-    cmd = "php artisan migrate --force --no-interaction && php artisan db:seed --force --no-interaction && php artisan serve --host=0.0.0.0 --port=$PORT"
+    # EXPLICACIÓN:
+    # 1. config:clear borra el caché que hace que las variables salgan vacías.
+    # 2. migrate y seed con --force saltan el bloqueo de "Application in production".
+    cmd = "php artisan config:clear && php artisan cache:clear && php artisan migrate --force --no-interaction && php artisan db:seed --force --no-interaction && php artisan serve --host=0.0.0.0 --port=$PORT"
