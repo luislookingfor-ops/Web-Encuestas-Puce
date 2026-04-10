@@ -8,8 +8,8 @@ cmds = ["composer install --no-dev --optimize-autoloader"]
     PHP_EXTENSION_INSTALL = "pdo_mysql" # Esto le ordena a Nixpacks instalar el driver
 
 [phases.start]
-<<<<<<< HEAD
+
 cmd = "php artisan config:clear && php artisan cache:clear && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"
-=======
+
 cmd = "php artisan config:clear && php artisan serve --host=0.0.0.0 --port=$PORT"
->>>>>>> 8b2e872e578d62d02b4c79cb499feff61bf179e2
+
