@@ -2,14 +2,10 @@
 nixPkgs = ["php82", "php82Packages.composer"]
 
 [variables]
-    # Forzamos la instalación de los drivers de MySQL
     PHP_EXTENSION_INSTALL = "pdo_mysql, mbstring, bcmath, xml, ctype, openssl"
 
 [phases.build]
     cmds = ["composer install --no-dev --optimize-autoloader"]
 
 [phases.start]
-    # 1. Limpiamos cualquier configuración vieja
-    # 2. Corremos migraciones y seeds con --force para saltar el bloqueo de producción
-    # 3. Encendemos el servidor en el puerto que Railway nos asigne
-    cmd = "php artisan config:clear && php artisan cache:clear && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"
+    cmd = "php artisan migrate --force --no-interaction && php artisan db:seed --force --no-interaction && php artisan serve --host=0.0.0.0 --port=$PORT"
