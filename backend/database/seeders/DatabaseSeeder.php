@@ -12,11 +12,35 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        // 1. Seed Admin User
+        $adminEmail = 'admin@encuestas.com';
+        $adminUser = \App\Models\User::where('email', $adminEmail)->first();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        if (!$adminUser) {
+            \App\Models\User::create([
+                'name' => 'Administrator',
+                'email' => $adminEmail,
+                'password' => \Illuminate\Support\Facades\Hash::make('encuestas123')
+            ]);
+        } else {
+            $adminUser->password = \Illuminate\Support\Facades\Hash::make('encuestas123');
+            $adminUser->save();
+        }
+
+        // 2. Seed Default Questions
+        $defaultQuestions = [
+            '¿Cuál es su mayor dolor en el proceso actual?',
+            '¿Cómo soluciona ese problema hoy en día?',
+            '¿Estaría dispuesto a pagar por una solución automática?'
+        ];
+
+        foreach ($defaultQuestions as $idx => $text) {
+            if (!\App\Models\Question::where('question_text', $text)->exists()) {
+                \App\Models\Question::create([
+                    'question_text' => $text,
+                    'sort_order' => $idx
+                ]);
+            }
+        }
     }
 }
