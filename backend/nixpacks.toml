@@ -1,19 +1,13 @@
 [phases.setup]
 nixPkgs = ["php82", "php82Packages.composer"]
 
-[phases.build]
-cmds = ["composer install --no-dev --optimize-autoloader"]
-
 [variables]
-    PHP_EXTENSION_INSTALL = "pdo_mysql" # Esto le ordena a Nixpacks instalar el driver
+    # Vital para solucionar el error "could not find driver"
+    PHP_EXTENSION_INSTALL = "pdo_mysql, mbstring, bcmath, xml"
+
+[phases.build]
+    cmds = ["composer install --no-dev --optimize-autoloader"]
 
 [phases.start]
-<<<<<<< HEAD
-cmd = "php artisan config:clear && php artisan cache:clear && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"
-=======
-
-cmd = "php artisan config:clear && php artisan cache:clear && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"
-
-cmd = "php artisan config:clear && php artisan serve --host=0.0.0.0 --port=$PORT"
-
->>>>>>> d0230043d009b5d27bbda2f003c2656be6720e43
+    # Limpiamos caché, corremos migraciones y ejecutamos tu script de usuario admin
+    cmd = "php artisan config:clear && php artisan cache:clear && php artisan migrate --force && php db_init.php && php artisan serve --host=0.0.0.0 --port=$PORT"
