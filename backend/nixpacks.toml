@@ -4,5 +4,16 @@ nixPkgs = ["php82", "php82Packages.composer"]
 [phases.build]
 cmds = ["composer install --no-dev --optimize-autoloader"]
 
+[variables]
+    PHP_EXTENSION_INSTALL = "pdo_mysql" # Esto le ordena a Nixpacks instalar el driver
+
 [phases.start]
+<<<<<<< HEAD
 cmd = "php artisan config:clear && php artisan cache:clear && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"
+=======
+
+cmd = "php artisan config:clear && php artisan cache:clear && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"
+
+cmd = "php artisan config:clear && php artisan serve --host=0.0.0.0 --port=$PORT"
+
+>>>>>>> d0230043d009b5d27bbda2f003c2656be6720e43
