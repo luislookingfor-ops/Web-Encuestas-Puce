@@ -11,7 +11,7 @@ $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
 // 1. Run Migrations
 echo "Running Migrations...\n";
 $status = $kernel->handle(
-    $input = new Symfony\Component\Console\Input\ArgvInput(['artisan', 'migrate', '--force']),
+    $input = new Symfony\Component\Console\Input\ArgvInput(['artisan', 'migrate', '--force']), // <-- ¡ASEGÚRATE QUE TENGA EL --FORCE!
     new Symfony\Component\Console\Output\ConsoleOutput
 );
 
