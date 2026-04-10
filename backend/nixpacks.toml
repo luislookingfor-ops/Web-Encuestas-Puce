@@ -8,6 +8,6 @@ nixPkgs = ["php82", "php82Packages.composer"]
 [phases.build]
     cmds = ["composer install --no-dev --optimize-autoloader"]
 
+
 [phases.start]
-    # Limpiamos caché, corremos migraciones y ejecutamos tu script de usuario admin
-    cmd = "php artisan config:clear && php artisan cache:clear && php artisan migrate --force && php db_init.php && php artisan serve --host=0.0.0.0 --port=$PORT"
+cmd = "php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"
