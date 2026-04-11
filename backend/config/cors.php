@@ -14,13 +14,13 @@ return [
     | To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
     |
     */
-'paths' => ['api/*', 'sanctum/csrf-cookie'],
-'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-'allowed_origins' => ['*'], // <--- Permitir todo temporalmente para desbloquearte
+'paths' => ['api/*', 'sanctum/csrf-cookie', 'login'], // Asegúrate que 'login' esté aquí
+'allowed_methods' => ['*'],
+'allowed_origins' => ['https://encuestas-puce.up.railway.app'], // URL exacta del Front
 'allowed_origins_patterns' => [],
 'allowed_headers' => ['*'],
 'exposed_headers' => [],
 'max_age' => 0,
-'supports_credentials' => true,
+'supports_credentials' => true, // OBLIGATORIO para login
 
 ];
