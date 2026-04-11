@@ -9,6 +9,4 @@ nixPkgs = ["php82", "php82Packages.composer"]
     cmds = ["composer install --no-dev --optimize-autoloader"]
 
 [phases.start]
-    # Primero limpiamos cualquier caché viejo para obligar a Laravel a leer Railway
-    # Luego corremos todo con --force y --no-interaction
-    cmd = "php artisan config:clear && php artisan cache:clear && php artisan migrate --force --no-interaction && php artisan db:seed --force --no-interaction && php artisan serve --host=0.0.0.0 --port=$PORT"
+cmd = "php artisan config:clear && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"
