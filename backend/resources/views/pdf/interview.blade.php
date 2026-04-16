@@ -139,8 +139,8 @@
         <div class="row">
             <div class="col-photo">
                 <div class="photo-box">
-                    @if($interview->photo_path)
-                        <img src="{{ storage_path('app/public/' . $interview->photo_path) }}" alt="Foto">
+                    @if(isset($imageData) && $imageData)
+                        <img src="{{ $imageData }}" alt="Foto">
                     @else
                         <br><br><br>FOTO obligatoria del entrevistado
                     @endif
