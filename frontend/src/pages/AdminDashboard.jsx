@@ -46,7 +46,22 @@ const AdminDashboard = () => {
       link.remove();
     } catch (error) {
       console.error('Error downloading PDF:', error);
-      alert('Error al generar el PDF. Por favor, intenta de nuevo.');
+      
+      // Intentar leer el mensaje de error si la respuesta es un Blob (común con responseType: 'blob')
+      if (error.response && error.response.data instanceof Blob) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            const errorData = JSON.parse(reader.result);
+            alert(`Error al generar el PDF: ${errorData.message || errorData.error || 'Error desconocido'}`);
+          } catch (e) {
+            alert('Error al generar el PDF (500). Por favor, revisa los logs del servidor.');
+          }
+        };
+        reader.readAsText(error.response.data);
+      } else {
+        alert('Error al generar el PDF. Por favor, intenta de nuevo.');
+      }
     }
   };
 

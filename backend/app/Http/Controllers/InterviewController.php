@@ -114,18 +114,23 @@ class InterviewController extends Controller
             
             $imageData = null;
             if ($interview->photo_path && Storage::disk('public')->exists($interview->photo_path)) {
-                $path = Storage::disk('public')->path($interview->photo_path);
-                $type = pathinfo($path, PATHINFO_EXTENSION);
-                $data = file_get_contents($path);
+                $data = Storage::disk('public')->get($interview->photo_path);
+                $type = pathinfo($interview->photo_path, PATHINFO_EXTENSION);
                 $imageData = 'data:image/' . $type . ';base64,' . base64_encode($data);
             }
 
             $pdf = Pdf::loadView('pdf.interview', compact('interview', 'imageData'));
             
-            // Sugerencia: Para DomPDF en algunos entornos es mejor usar stream() si download() falla
+            // Set paper to A4 (optional but recommended for stability)
+            $pdf->setPaper('A4', 'portrait');
+            
             return $pdf->download("entrevista_{$interview->id}.pdf");
         } catch (\Exception $e) {
-            \Log::error('Error generating PDF for interview ' . $interview->id . ': ' . $e->getMessage());
+            \Log::error('ERROR GENERATING PDF [Interview ' . $interview->id . ']: ' . $e->getMessage(), [
+                'exception' => $e,
+                'trace' => $e->getTraceAsString()
+            ]);
+            
             return response()->json([
                 'error' => 'Error al generar el PDF',
                 'message' => $e->getMessage()
